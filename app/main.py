@@ -3,6 +3,8 @@ from flask_cors import CORS, cross_origin
 import requests
 import retriever as retriever
 
+from routes import embed_google_docs, save_text_to_dir, embed, query
+
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -10,36 +12,58 @@ url = "http://0.0.0.0:8080/"
 
 # Health check route
 @app.route("/isalive")
-def is_alive():
+def is_alive_function():
     print("/isalive request")
     status_code = Response(status=200)
     return status_code
 
 @app.route('/embed', methods=['POST'])
-def embed():
+def embed_function():
   '''
   input_dict = {
+    'text' : text,
     'urls' : urls
   }
   '''
   print("embedding context")
   data = request.get_json()
-
+  text = data['text']
   urls = data['urls']
 
-  # do the google search stuff
+  # TODO: update model_index to where it's just the next available number
+  model_index = 1
 
-  return jsonify({})
+  if text:
+    save_text_to_dir(text, model_index)
+    embed(model_index)
+  elif urls:
+    embed_google_docs(urls, model_index)
 
-@app.route('/query')
-def query():
-  '''should take in a model index id'''
-  print("embedding context")
+  return jsonify({
+    'status' : Response(status=200),
+    'model_index' : model_index
+  })
 
-  return jsonify({})
+@app.route('/query', methods=['POST'])
+def query_function():
+  '''
+  input_dict = {
+    'model_index' : model_index,
+    'prompt' : prompt
+  }
+  '''
+  print("querying")
+
+  data = request.get_json()
+  model_index = data['model_index']
+  prompt = data['prompt']
+
+  res = query(prompt, model_index)
+
+  return jsonify({'res' : res})
 
 @app.route('/')
-def index():
+def index_function():
   print("RUNNING APP!")
 
   return jsonify({})
