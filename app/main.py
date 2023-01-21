@@ -15,10 +15,19 @@ def is_alive():
     status_code = Response(status=200)
     return status_code
 
-@app.route('/embed')
+@app.route('/embed', methods=['POST'])
 def embed():
-  '''should take in documents or Google Drive URL'''
+  '''
+  input_dict = {
+    'urls' : urls
+  }
+  '''
   print("embedding context")
+  data = request.get_json()
+
+  urls = data['urls']
+
+  # do the google search stuff
 
   return jsonify({})
 
