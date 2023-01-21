@@ -1,0 +1,7 @@
+1. Figure out how this LLM stuff works
+2. Get repeated answers to questions on some long string
+- potentially use GPT-index
+
+TODO:
+1. Use your own embedding model instead of OpenAI's, just reference sentence transformers
+2. Review OpenAI's examples for QA to figure out what your prompt template should be ("respond to this: "?)
