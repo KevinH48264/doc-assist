@@ -22,25 +22,29 @@ def embed_function():
   '''
   input_dict = {
     'text' : text,
-    'urls' : urls
+    'urls' : urls,
+    'model' : model
   }
   '''
   print("embedding context")
   data = request.get_json()
-  text = data['text']
-  urls = data['urls']
+  print(data)
 
   # TODO: update model_index to where it's just the next available number
-  model_index = 1
+  if 'model' in data.keys():
+    model_index = data['model']
+  else:
+    model_index = 0
 
-  if text:
+  if 'text' in data.keys():
+    text = data['text']
     save_text_to_dir(text, model_index)
     embed(model_index)
-  elif urls:
+  if 'urls' in data.keys():
+    urls = data['urls']
     embed_google_docs(urls, model_index)
 
   return jsonify({
-    'status' : Response(status=200),
     'model_index' : model_index
   })
 
@@ -57,10 +61,11 @@ def query_function():
   data = request.get_json()
   model_index = data['model_index']
   prompt = data['prompt']
+  type = data['type']
 
-  res = query(prompt, model_index)
+  res = query(prompt, model_index, type)
 
-  return jsonify({'res' : res})
+  return jsonify({'Response' : res["response"]})
 
 @app.route('/')
 def index_function():
