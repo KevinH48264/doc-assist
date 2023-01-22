@@ -6,5 +6,6 @@ TODO:
 1. Use your own embedding model instead of OpenAI's, just reference sentence transformers
 https://gpt-index.readthedocs.io/en/latest/how_to/update.html
 2. Review OpenAI's examples for QA to figure out what your prompt template should be ("respond to this: "?)
+3. How do you figure out the latest index available?
 
 For reference for flask: https://github.com/KevinH48264/chatgpt-assisted-fact-checker/blob/main/app/main.py

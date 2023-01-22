@@ -1,9 +1,6 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
-import requests
-import retriever as retriever
-
-from routes import embed_google_docs, save_text_to_dir, embed, query
+import routes as routes
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -23,7 +20,7 @@ def embed_function():
   input_dict = {
     'text' : text,
     'urls' : urls,
-    'model' : model
+    'model_index' : model_index
   }
   '''
   print("embedding context")
@@ -32,17 +29,17 @@ def embed_function():
 
   # TODO: update model_index to where it's just the next available number
   if 'model' in data.keys():
-    model_index = data['model']
+    model_index = data['model_index']
   else:
     model_index = 0
 
   if 'text' in data.keys():
     text = data['text']
-    save_text_to_dir(text, model_index)
-    embed(model_index)
+    routes.save_text_to_dir(text, model_index)
+    routes.embed(model_index)
   if 'urls' in data.keys():
     urls = data['urls']
-    embed_google_docs(urls, model_index)
+    routes.embed_google_docs(urls, model_index)
 
   return jsonify({
     'model_index' : model_index
@@ -63,7 +60,7 @@ def query_function():
   prompt = data['prompt']
   type = data['type']
 
-  res = query(prompt, model_index, type)
+  res = routes.query(prompt, model_index, type)
 
   return jsonify({'Response' : res["response"]})
 

@@ -1,6 +1,5 @@
 from gpt_index import GPTSimpleVectorIndex, SimpleDirectoryReader
 from gpt_index import GPTListIndex, GoogleDocsReader
-import re
 import os
 # from dotenv import load_dotenv
 # load_dotenv()

@@ -1,0 +1,3 @@
+gpt-index
+flask
+flask_cors

@@ -1,3 +1,4 @@
 archive/
 .env
 app/credentials.json
+app/token.json
