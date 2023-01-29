@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
-import routes as routes
+import routes_optimized as routes
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -28,7 +28,7 @@ def embed_function():
   print(data)
 
   # TODO: update model_index to where it's just the next available number
-  if 'model' in data.keys():
+  if 'model_index' in data.keys():
     model_index = data['model_index']
   else:
     model_index = 0
@@ -41,9 +41,12 @@ def embed_function():
     urls = data['urls']
     routes.embed_google_docs(urls, model_index)
 
-  return jsonify({
+  response = jsonify({
     'model_index' : model_index
   })
+  response.headers.add('Access-Control-Allow-Origin', '*')
+
+  return response
 
 @app.route('/query', methods=['POST'])
 def query_function():
@@ -62,7 +65,9 @@ def query_function():
 
   res = routes.query(prompt, model_index, type)
 
-  return jsonify({'Response' : res["response"]})
+  response = jsonify({'Response' : res})
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  return response
 
 @app.route('/')
 def index_function():

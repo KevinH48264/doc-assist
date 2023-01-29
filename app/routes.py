@@ -1,9 +1,9 @@
 from gpt_index import GPTSimpleVectorIndex, SimpleDirectoryReader
 from gpt_index import GPTListIndex, GoogleDocsReader
 import os
-# from dotenv import load_dotenv
-# load_dotenv()
-# openai_api_key = os.getenv('OPENAI_API_KEY')
+from dotenv import load_dotenv
+load_dotenv()
+openai_api_key = os.getenv('OPENAI_API_KEY')
 
 def save_text_to_dir(text, model_index):
     print('saving')
@@ -15,13 +15,19 @@ def save_text_to_dir(text, model_index):
 
 def embed(model_index):
     print("embed")
+    if not os.path.exists('indices'):
+        os.makedirs('indices')
+
     documents = SimpleDirectoryReader('data/text_{}'.format(model_index)).load_data()
+    print('c')
     index = GPTSimpleVectorIndex(documents)
+    print('d')
     index.save_to_disk('indices/index_{}.json'.format(model_index))
+    print('e')
 
 # queries 
 def query(question, model_index, type):
-    print("query")
+    print("query", question, model_index, type)
     if type == "text":
         index = GPTSimpleVectorIndex.load_from_disk('indices/index_{}.json'.format(model_index))
     elif type =="url":
