@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
-import routes_optimized as routes
+import routes_url as routes
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -20,7 +20,8 @@ def embed_function():
   input_dict = {
     'text' : text,
     'urls' : urls,
-    'model_index' : model_index
+    'model_index' : model_index,
+    'openai_key' : openai_key
   }
   '''
   print("embedding context")
@@ -33,10 +34,15 @@ def embed_function():
   else:
     model_index = 0
 
+  if 'openai_key' in data.keys():
+    openai_key = data['openai_key']
+  else:
+    openai_key = ""
+
   if 'text' in data.keys():
     text = data['text']
     routes.save_text_to_dir(text, model_index)
-    routes.embed(model_index)
+    routes.embed(model_index, openai_key)
   if 'urls' in data.keys():
     urls = data['urls']
     routes.embed_google_docs(urls, model_index)

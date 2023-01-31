@@ -2,8 +2,25 @@ from gpt_index import GPTSimpleVectorIndex, SimpleDirectoryReader
 from gpt_index import GPTListIndex, GoogleDocsReader
 import os
 from dotenv import load_dotenv
+from bs4.element import Comment
 load_dotenv()
 openai_api_key = os.getenv('OPENAI_API_KEY')
+
+# 2. WEB SCRAPE
+# Helper functions to extract all text
+def tag_visible(element):
+    if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    if isinstance(element, Comment):
+        return False
+    return True
+
+def text_from_URL(URL):
+    r = requests.get(URL)
+    soup = BeautifulSoup(r.content, 'html.parser')
+    texts = soup.findAll(text=True)
+    visible_texts = filter(tag_visible, texts)  
+    return " ".join(t.strip() for t in visible_texts)
 
 def save_text_to_dir(text, model_index):
     print('saving')
