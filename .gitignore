@@ -2,3 +2,5 @@ archive/
 .env
 app/credentials.json
 app/token.json
+app/data/
+app/indices/
