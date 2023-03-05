@@ -1,6 +1,16 @@
 archive/
+
+# environment variables
 .env
-app/credentials.json
-app/token.json
-app/data/
-app/indices/
+
+# backend server files
+backend/credentials.json
+backend/token.json
+backend/data/
+backend/indices/
+
+# chrome extension
+extension/node_modules
+
+# website files
+frontend/node_modules
