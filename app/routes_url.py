@@ -15,6 +15,7 @@ from langchain import OpenAI
 
 load_dotenv()
 hfhub_api_key = os.getenv('HUGGINGFACEHUB_API_KEY')
+openai_api_key = os.getenv('OPENAI_API_KEY')
 hf = HuggingFaceHub(repo_id="google/flan-t5-xl", huggingfacehub_api_token=hfhub_api_key, model_kwargs={'temperature':1e-10})
 llm_predictor = LLMPredictor(llm=hf)
 
