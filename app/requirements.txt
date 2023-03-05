@@ -1,6 +1,0 @@
-gpt-index
-flask
-flask_cors
-python-dotenv
-bs4
-requests
