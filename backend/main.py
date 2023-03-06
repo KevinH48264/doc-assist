@@ -75,6 +75,26 @@ def query_function():
   response.headers.add('Access-Control-Allow-Origin', '*')
   return response
 
+@app.route('/chat', methods=['POST'])
+def chat_function():
+  '''
+  input_dict = {
+    'website_text' : website_text,
+    'prompt' : prompt
+  }
+  '''
+  print("chatting")
+
+  data = request.get_json()
+  website_text = data['website_text']
+  prompt = data['prompt']
+
+  res = routes.query(prompt, website_text)
+
+  response = jsonify({'Response' : res})
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  return response
+
 @app.route('/')
 def index_function():
   print("RUNNING APP!")
