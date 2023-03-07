@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.11
 
 # Install libraries
 COPY ./requirements.txt ./
@@ -12,7 +12,7 @@ RUN mkdir /app
 # COPY model.pkl /app
 # COPY tokenizer.pkl /app
 COPY main.py /app
-COPY routes_url.py /app
+COPY routes.py /app
 COPY credentials.json /app
 ADD /data /app
 ADD /indices /app

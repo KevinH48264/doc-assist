@@ -1,6 +1,6 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
-import routes_url as routes
+import routes as routes
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -72,6 +72,37 @@ def query_function():
   res = routes.query(prompt, model_index, type)
 
   response = jsonify({'Response' : res})
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  return response
+
+@app.route('/chat', methods=['POST'])
+def chat_function():
+  '''
+  input_dict = {
+    'website_text' : website_text,
+    'prompt' : prompt,
+    'chat_history' : chat_history
+  }
+  '''
+  print("chatting")
+
+  data = request.get_json()
+
+  website_text, prompt, chat_history = "", "", []
+
+  if 'website_text' in data.keys():
+    website_text = data['website_text']
+  if 'prompt' in data.keys():
+    prompt = data['prompt']
+  if 'chat_history' in data.keys():
+    chat_history = data['chat_history']
+
+  res_answer, res_messages = routes.chat_openai(prompt, website_text, chat_history)
+
+  response = jsonify({
+    'Response' : res_answer, 
+    'Messages' : res_messages
+  })
   response.headers.add('Access-Control-Allow-Origin', '*')
   return response
 
