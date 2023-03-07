@@ -185,12 +185,12 @@ def chat_openai(question="Tell me to ask you a prompt", website="", chat_history
         prompt = "Given this information: " + website[:MAX_CHAT_SIZE - len(question)] + ", respond conversationally to this prompt: " + question
 
     # define message conversation for model
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant, a large language model trained by OpenAI. Answer as concisely as possible. If you're unsure of the answer, say 'Sorry, I don't know'"},
-    ]
     if chat_history:
-        for msg in chat_history:
-            messages.append(msg)
+        messages = chat_history
+    else:
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant, a large language model trained by OpenAI. Answer as concisely as possible. If you're unsure of the answer, say 'Sorry, I don't know'"},
+        ]
     messages.append({"role": "user", "content": prompt})
 
     # create the chat completion
