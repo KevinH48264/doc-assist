@@ -10,9 +10,10 @@ from gpt_index import LangchainEmbedding
 from gpt_index import LLMPredictor, GPTSimpleVectorIndex, PromptHelper
 from bs4 import BeautifulSoup
 from bs4.element import Comment
+import openai
 import requests
 from langchain import OpenAI, LLMChain, PromptTemplate
-from langchain.llms import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.chains.conversation.memory import ConversationBufferMemory
 
 load_dotenv()
@@ -138,9 +139,9 @@ def embed_google_docs(document_ids, model_index):
     index.save_to_disk('indices/index_{}.json'.format(model_index))
     print("finished embedding!")
 
-# chatting for chrome extension
+# chatting for chrome extension with LangChain
 def chat(question, website="", chat_history=""):
-    print("query", question, website, type)
+    print("chat", question, website, type)
 
     # default prompt
     prompt = question
@@ -177,6 +178,36 @@ def chat(question, website="", chat_history=""):
 # embed_google_docs(test_document_id, 4)
 # print(query("summarize it", 4, "url"))
 
-question = "Where are the most famous egyptian pyramids found?"
-website = "The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built.[9] The Pyramid of Khufu is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence, despite its being the oldest wonder by about 2,000 years.[10]"
-chat(question, website)
+def chat_openai(question="Tell me to ask you a prompt", website="", chat_history=[]):
+    # define prompt
+    prompt = question
+    if website:
+        prompt = "Given this information: " + website[:MAX_CHAT_SIZE - len(question)] + ", respond conversationally to this prompt: " + question
+
+    # define message conversation for model
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant, a large language model trained by OpenAI. Answer as concisely as possible. If you're unsure of the answer, say 'Sorry, I don't know'"},
+    ]
+    if chat_history:
+        for msg in chat_history:
+            messages.append(msg)
+    messages.append({"role": "user", "content": prompt})
+
+    # create the chat completion
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+    text_answer = completion["choices"][0]["message"]["content"]
+
+    # updated conversation history
+    messages.append({"role": "assistant", "content": text_answer})
+
+    return text_answer, messages
+
+# question = "Where are the most famous egyptian pyramids found?"
+# website = "The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built.[9] The Pyramid of Khufu is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence, despite its being the oldest wonder by about 2,000 years.[10]"
+# chat(question, website)
+
+# res = chat_openai(question = "What's special about the Giza pyramids?", website="The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built.[9] The Pyramid of Khufu is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence, despite its being the oldest wonder by about 2,000 years.[10]")
+# print("res", res)
