@@ -1,3 +1,5 @@
+import ReactDOM from "react-dom";
+
 export async function getCurrentTab() {
   const queryOptions = { active: true, lastFocusedWindow: true };
   const [tab] = await chrome.tabs.query(queryOptions);
@@ -26,3 +28,12 @@ export function decimalToColor(decimal: number): string {
   const green = Math.round(255 * decimal);
   return `rgb(${red}, ${green}, 0)`;
 }
+
+export const render = (
+  component:
+    | React.FunctionComponentElement<any>
+    | React.FunctionComponentElement<any>[],
+  container: ReactDOM.Container | null
+) => {
+  ReactDOM.render(component, container);
+};

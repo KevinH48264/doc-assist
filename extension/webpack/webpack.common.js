@@ -6,21 +6,22 @@ module.exports = {
   entry: {
     popup: path.join(srcDir, "popup.tsx"),
     background: path.join(srcDir, "background.ts"),
-    content_script: path.join(srcDir, "content_script.ts"),
+    content_script: path.join(srcDir, "content_script.tsx"),
   },
   output: {
     path: path.join(__dirname, "../dist/js/"),
     filename: "[name].js",
     publicPath: path.join(__dirname, "../dist/js/"),
-    assetModuleFilename: 'images/[name][ext]'
+    assetModuleFilename: "images/[name][ext]",
   },
   optimization: {
-    splitChunks: {
-      name: "vendor",
-      chunks(chunk) {
-        return chunk.name !== "background";
-      },
-    },
+    // splitChunks: {
+    //   name: "vendor",
+    //   chunks(chunk) {
+    //     return chunk.name !== "background";
+    //   },
+    // },
+    runtimeChunk: false,
   },
   module: {
     rules: [
@@ -35,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
     ],
   },

@@ -11,6 +11,7 @@ backend/indices/
 
 # chrome extension
 extension/node_modules
+extension/dist/
 
 # website files
 frontend/node_modules
