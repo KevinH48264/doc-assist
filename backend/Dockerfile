@@ -14,8 +14,8 @@ RUN mkdir /app
 COPY main.py /app
 COPY routes.py /app
 COPY credentials.json /app
-ADD /data /app
-ADD /indices /app
+# ADD /data /app
+# ADD /indices /app
 
 WORKDIR /app
 
