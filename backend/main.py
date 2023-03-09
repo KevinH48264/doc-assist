@@ -1,11 +1,16 @@
 from flask import Flask, Response, render_template, jsonify, request
 from flask_cors import CORS, cross_origin
 import routes as routes
+import json
+import sseclient
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 url = "http://0.0.0.0:8080/"
+
+# temporary holder
+generator_exists = False
 
 # Health check route
 @app.route("/isalive")
@@ -14,97 +19,36 @@ def is_alive_function():
     status_code = Response(status=200)
     return status_code
 
-@app.route('/embed', methods=['POST'])
-def embed_function():
-  '''
-  input_dict = {
-    'text' : text,
-    'urls' : urls,
-    'model_index' : model_index,
-    'openai_key' : openai_key
-  }
-  '''
-  print("embedding context")
-  data = request.get_json()
-  print(data)
+# @app.route('/chat', methods=['POST'])
+# def chat_function():
+#   '''
+#   input_dict = {
+#     'website_text' : website_text,
+#     'prompt' : prompt,
+#     'chat_history' : chat_history
+#   }
+#   '''
+#   print("chatting")
 
-  # TODO: update model_index to where it's just the next available number
-  if 'model_index' in data.keys():
-    model_index = data['model_index']
-  else:
-    model_index = 0
+#   data = request.get_json()
 
-  if 'openai_key' in data.keys():
-    openai_key = data['openai_key']
-  else:
-    openai_key = ""
+#   website_text, prompt, chat_history = "", "", []
 
-  if 'text' in data.keys():
-    text = data['text']
-    routes.save_text_to_dir(text, model_index)
-    routes.embed(model_index, openai_key)
-  if 'urls' in data.keys():
-    urls = data['urls']
-    routes.embed_google_docs(urls, model_index)
+#   if 'website_text' in data.keys():
+#     website_text = data['website_text']
+#   if 'prompt' in data.keys():
+#     prompt = data['prompt']
+#   if 'chat_history' in data.keys():
+#     chat_history = data['chat_history']
 
-  response = jsonify({
-    'model_index' : model_index
-  })
-  response.headers.add('Access-Control-Allow-Origin', '*')
+#   res_answer, res_messages = routes.chat_openai(prompt, website_text, chat_history)
 
-  return response
-
-@app.route('/query', methods=['POST'])
-def query_function():
-  '''
-  input_dict = {
-    'model_index' : model_index,
-    'prompt' : prompt
-  }
-  '''
-  print("querying")
-
-  data = request.get_json()
-  model_index = data['model_index']
-  prompt = data['prompt']
-  type = data['type']
-
-  res = routes.query(prompt, model_index, type)
-
-  response = jsonify({'Response' : res})
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  return response
-
-@app.route('/chat', methods=['POST'])
-def chat_function():
-  '''
-  input_dict = {
-    'website_text' : website_text,
-    'prompt' : prompt,
-    'chat_history' : chat_history
-  }
-  '''
-  print("chatting")
-
-  data = request.get_json()
-
-  website_text, prompt, chat_history = "", "", []
-
-  if 'website_text' in data.keys():
-    website_text = data['website_text']
-  if 'prompt' in data.keys():
-    prompt = data['prompt']
-  if 'chat_history' in data.keys():
-    chat_history = data['chat_history']
-
-  res_answer, res_messages = routes.chat_openai(prompt, website_text, chat_history)
-
-  response = jsonify({
-    'Response' : res_answer, 
-    'Messages' : res_messages
-  })
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  return response
+#   response = jsonify({
+#     'Response' : res_answer, 
+#     'Messages' : res_messages
+#   })
+#   response.headers.add('Access-Control-Allow-Origin', '*')
+#   return response
 
 @app.route('/chat_stream', methods=['POST'])
 def chat_function():
@@ -115,7 +59,7 @@ def chat_function():
     'chat_history' : chat_history
   }
   '''
-  print("chatting")
+  print("chatting route called")
 
   data = request.get_json()
 
@@ -128,14 +72,52 @@ def chat_function():
   if 'chat_history' in data.keys():
     chat_history = data['chat_history']
 
-  res_answer_generator, res_messages = routes.chat_openai_stream(prompt, website_text, chat_history)
+  # website_text = request.args.get('websitetext')
+  # prompt = request.args.get('prompt')
 
-  response = jsonify({
-    'Response' : res_answer_generator, 
-    'Messages' : res_messages # potentially don't need to return this and store messages in front end
-  })
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  return response
+  print("values: ", website_text, prompt, chat_history)
+
+  # res_answer_generator = sseclient.SSEClient('')
+  res_answer_generator, res_messages = routes.chat_openai_stream(prompt, website_text, chat_history)
+  # generator_exists = True
+
+  # res_answer = ""
+  # print("going to print out stuff", res_answer_generator)
+
+  # def generate():
+  #     for event in res_answer_generator.events():
+  #         yield event.data
+
+  # # for event in res_answer_generator.events():
+  # #   if event.data != '[DONE]' and 'content' in json.loads(event.data)['choices'][0]["delta"]:
+  # #       # print(event.data)
+  # #       res_answer += json.loads(event.data)['choices'][0]["delta"]["content"]
+  # #       # print(json.loads(event.data)['choices'][0]["delta"]["content"], end="", flush=True)
+
+  print("finished", type(res_answer_generator))
+  return Response(res_answer_generator, mimetype='text/event-stream')
+  # response = jsonify({
+  #   'Answer' : res_answer,
+  #   'Response' : res_answer_generator, 
+  #   'Messages' : res_messages # potentially don't need to return this and store messages in front end
+  # })
+  # response.headers.add('Access-Control-Allow-Origin', '*')
+  # return response
+
+# @app.route('/stream')
+# def stream():
+#   if generator_exists:
+#     global res_answer_generator
+
+#     print("going to print out stuff", res_answer_generator)
+
+#     def generate():
+#         for event in res_answer_generator.events():
+#             yield event.data
+
+#     print("finished")
+#     return Response(generate(), mimetype='text/event-stream')
+#   return
 
 @app.route('/')
 def index_function():
