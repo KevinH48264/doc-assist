@@ -71,6 +71,7 @@ export async function getPdfText(pdfUrl: string) {
 }
 
 export const extractText = () => {
+  console.log("Extracting text from page");
   function isHidden(el: Element) {
     var style = window.getComputedStyle(el);
     return style.display === "none" || style.visibility === "hidden";

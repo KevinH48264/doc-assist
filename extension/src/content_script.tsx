@@ -11,8 +11,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     case "tab-updated":
       const container = document.createElement("div");
       document.body.appendChild(container);
+      const pdfText = request.arguments["message"]
       ReactDOM.render(
-        <Main pdfText={request.arguments["message"]["text"]} />,
+        <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
         container
       );
       break;
