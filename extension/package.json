@@ -24,8 +24,8 @@
     "@fontsource/clear-sans": "^4.5.3",
     "@fontsource/molengo": "^4.5.11",
     "crypto-randomuuid": "^1.0.0",
+    "eventsource-parser": "^0.1.0",
     "framer-motion": "^8.5.5",
-    "fs": "^0.0.1-security",
     "pdfjs-dist": "^3.4.120",
     "react-icons": "^4.7.1"
   },
