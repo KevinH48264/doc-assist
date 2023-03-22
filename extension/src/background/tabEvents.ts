@@ -4,7 +4,8 @@ export async function initializeTabEventListeners() {
   chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
     if (changeInfo.status == "complete") {
   
-      const tab = await getCurrentTab();    
+      const tab = await getCurrentTab();   
+      console.log("tab", tab.url) 
       let body = null;
       if (tab.url?.endsWith(".pdf")) {
         const options = {
