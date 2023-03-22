@@ -3,6 +3,7 @@ from flask_cors import CORS
 import routes as routes
 from PyPDF2 import PdfReader
 import requests
+import os
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -26,12 +27,18 @@ def pdf2text_function():
   if not url:
     return {"text": ""}
 
-  response = requests.get(url)
-  with open('file.pdf', 'wb') as f:
-      f.write(response.content)
+  if (url.startswith("file://")):
+    abs_path = url[7:]
+    reader = PdfReader(abs_path)
+  elif (url.startswith("C:")):
+    abs_path = url[2:]
+    reader = PdfReader(abs_path)
+  else:
+    response = requests.get(url)
+    with open('file.pdf', 'wb') as f:
+        f.write(response.content)
+        reader = PdfReader('./file.pdf')
 
-  reader = PdfReader('./file.pdf')
-  
   text = ""
   for i in range(4):
     page = reader.pages[i]
