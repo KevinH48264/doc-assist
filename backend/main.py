@@ -1,6 +1,8 @@
 from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 import routes as routes
+from PyPDF2 import PdfReader
+import requests
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -10,9 +12,35 @@ url = "http://0.0.0.0:8080/"
 # Health check route
 @app.route("/isalive")
 def is_alive_function():
-    print("/isalive request")
-    status_code = Response(status=200)
-    return status_code
+  print("isalive request")
+  return {"is alive": "true"}
+
+@app.route("/pdf2text", methods=['POST'])
+def pdf2text_function():
+  data = request.get_json()
+  print(data)
+  url = None
+  if "url" in data.keys():
+    url = data["url"]
+
+  if not url:
+    return {"text": ""}
+  
+  # !! 1. Get PDF working
+  # !! 2. Differentiate between PDF and HTML
+
+  response = requests.get(url)
+  with open('file.pdf', 'wb') as f:
+      f.write(response.content)
+
+  reader = PdfReader('./file.pdf')
+  
+  text = ""
+  for i in range(4):
+    page = reader.pages[i]
+    text += page.extract_text()
+
+  return {"text": text}
 
 # chatting with no stream
 @app.route('/chat', methods=['POST'])
@@ -56,7 +84,6 @@ def chat_stream_function():
     'chat_history' : chat_history
   }
   '''
-  print("chatting, with stream")
 
   data = request.get_json()
 
