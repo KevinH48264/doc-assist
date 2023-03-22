@@ -25,9 +25,6 @@ def pdf2text_function():
 
   if not url:
     return {"text": ""}
-  
-  # !! 1. Get PDF working
-  # !! 2. Differentiate between PDF and HTML
 
   response = requests.get(url)
   with open('file.pdf', 'wb') as f:
