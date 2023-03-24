@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { extractText } from "../../utils";
 import { Close } from "./Close";
@@ -29,20 +29,25 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
         margin={16}
         transition="all 0.5s ease"
       >
-        {isOpened ? (
-          <Box onClick={() => setIsOpened(false)}>
-            <Open extractedText={extractedText}></Open>
-          </Box>
-        ) : (
-          <Box
+        <Box>
+          {isOpened ? (
+            <Box marginBottom={"1em"}>
+              <Open extractedText={extractedText}></Open>
+            </Box>
+          ) : null}
+          <Flex
+            justifyContent={"end"}
             onMouseOver={() => {
+              console.log("mouse over");
               if (!isOpened) setIsOpened(true);
             }}
-            cursor={"pointer"}
+            onClick={() => {
+              if (isOpened) setIsOpened(false);
+            }}
           >
             <Close></Close>
-          </Box>
-        )}
+          </Flex>
+        </Box>
       </Box>
     </React.StrictMode>
   );
