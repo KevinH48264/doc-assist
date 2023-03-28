@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-url = "http://0.0.0.0:8080/"
+url = "http://0.0.0.0:8082/"
 
 # Health check route
 @app.route("/isalive")
@@ -29,9 +29,11 @@ def pdf2text_function():
 
   if (url.startswith("file://")):
     abs_path = url[7:]
+    url = url.replace("%20", " ")
     reader = PdfReader(abs_path)
   elif (url.startswith("C:")):
     abs_path = url[2:]
+    url = url.replace("%20", " ")
     reader = PdfReader(abs_path)
   else:
     response = requests.get(url)
@@ -40,7 +42,7 @@ def pdf2text_function():
         reader = PdfReader('./file.pdf')
 
   text = ""
-  for i in range(4):
+  for i in range(11,19):
     page = reader.pages[i]
     text += page.extract_text()
 
@@ -109,4 +111,4 @@ def index_function():
   return jsonify({})
 
 if __name__ == "__main__":
-  app.run(debug=True, host="0.0.0.0", port=8080)
+  app.run(debug=True, host="0.0.0.0", port=8082)
