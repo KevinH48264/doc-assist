@@ -5,6 +5,7 @@ export async function initializeTabEventListeners() {
     if (changeInfo.status == "complete") {
       const tab = await getCurrentTab();   
       console.log("tab", tab.url) 
+      
       let body = null;
       if (tab.url?.endsWith(".pdf")) {
         const options = {
