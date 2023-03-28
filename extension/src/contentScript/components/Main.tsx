@@ -12,6 +12,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [extractedText, setExtractedText] = useState("");
   useEffect(() => {
+    console.log("USING EFFECT!")
     if (pdfText) {
       setExtractedText(pdfText);
       return;
@@ -24,10 +25,11 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
       <Box
         zIndex={1000}
         position={"fixed"}
-        bottom={!isOpened ? 0 : 100}
+        bottom={!isOpened ? 0 : 50}
         right={0}
         margin={16}
         transition="all 0.5s ease"
+        id="gptcard"
       >
         <Box>
           {isOpened ? (

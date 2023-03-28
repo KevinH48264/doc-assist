@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
 
-  "name": "ChatGPT for websites",
-  "description": "ChatGPT response one-click away about the website",
+  "name": "Browser GPT",
+  "description": "ChatGPT always ready for websites and pdfs",
   "version": "0.0.1.0",
 
   "options_ui": {

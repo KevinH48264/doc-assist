@@ -88,10 +88,12 @@ export const extractText = () => {
     for (var i = 0, max = allTags.length; i < max; i++) {
       if (isHidden(allTags[i])) {
         // hidden
-      } else {
-        textContent += allTags[i].textContent;
+      } else if (allTags[i].textContent) {
+        textContent += allTags[i].textContent?.trim();
       }
     }
   }
+
+  console.log("HERE IS THE TEXT CONTENT: ", textContent)
   return textContent;
 };

@@ -3,7 +3,6 @@ import { getCurrentTab, sendMessageInCurrentTab } from "../utils";
 export async function initializeTabEventListeners() {
   chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo, tab) {
     if (changeInfo.status == "complete") {
-  
       const tab = await getCurrentTab();   
       console.log("tab", tab.url) 
       let body = null;
@@ -15,7 +14,7 @@ export async function initializeTabEventListeners() {
             url: tab.url,
           }),
         };
-        const response = await fetch("http://0.0.0.0:8080/pdf2text", options);
+        const response = await fetch("http://localhost:8080/pdf2text", options);
         body = await response.json();
       }
 

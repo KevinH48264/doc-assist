@@ -9,13 +9,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       check();
       break;
     case "tab-updated":
-      const container = document.createElement("div");
-      document.body.appendChild(container);
-      const pdfText = request.arguments["message"]
-      ReactDOM.render(
-        <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
-        container
-      );
+      // ensure only one gpt container appears
+      if (!document.getElementById('gptcard-container')) {
+        const container = document.createElement("div");
+        container.id = "gptcard-container"
+        document.body.appendChild(container);
+        const pdfText = request.arguments["message"]
+        ReactDOM.render(
+          <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
+          container
+        );
+      }
+      
       break;
   }
 
