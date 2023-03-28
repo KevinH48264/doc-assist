@@ -12,7 +12,7 @@ export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
   return (
     <Box
       fontFamily={"monospace"}
-      padding={"8px"}
+      padding={"16px"}
       height={"340px"}
       overflow={"scroll"}
       color={"white"}

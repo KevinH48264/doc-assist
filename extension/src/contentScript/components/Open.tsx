@@ -69,18 +69,19 @@ export const Open: React.FC<OpenProps> = ({ extractedText }) => {
 
   return (
     <Box
-      borderRadius={"16px"}
-      bg={"blue"}
-      w={"240px"}
+      borderRadius={"10px 0px 0px 10px"}
+      bg={"black"}
+      w={"300px"}
       border={"1px"}
       borderColor={"black"}
     >
+      <Body dataResponse={dataResponse} loading={loading} />
+      <hr style={{opacity: "40%", margin: "0px"}} />
       <ChatInput
         fetchData={fetchData}
         inputText={inputText}
         setInputText={setInputText}
       />
-      <Body dataResponse={dataResponse} loading={loading} />
     </Box>
   );
 };
