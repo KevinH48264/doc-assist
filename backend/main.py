@@ -28,10 +28,12 @@ def pdf2text_function():
     return {"text": ""}
 
   if (url.startswith("file://")):
-    abs_path = url[7:]
-    reader = PdfReader(abs_path)
-  elif (url.startswith("C:")):
-    abs_path = url[2:]
+    if (url.startswith("file:///C:")):
+      abs_path = url[8:]
+    else:
+      abs_path = url[7:]
+
+    abs_path = abs_path.replace('%20', ' ')
     reader = PdfReader(abs_path)
   else:
     response = requests.get(url)
@@ -39,6 +41,7 @@ def pdf2text_function():
         f.write(response.content)
         reader = PdfReader('./file.pdf')
 
+  # summarize the page you're on
   text = ""
   for i in range(4):
     page = reader.pages[i]
