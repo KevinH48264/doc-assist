@@ -12,7 +12,6 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [extractedText, setExtractedText] = useState("");
   useEffect(() => {
-    console.log("USING EFFECT!")
     if (pdfText) {
       setExtractedText(pdfText);
       return;
@@ -25,30 +24,35 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
       <Box
         zIndex={1000}
         position={"fixed"}
-        bottom={!isOpened ? 0 : 50}
+        bottom={!isOpened ? 0 : 0}
         right={0}
-        margin={16}
+        marginBottom={10}
         transition="all 0.5s ease"
         id="gptcard"
+        onMouseOut={() => {
+          if (isOpened) setIsOpened(false);
+        }}
       >
         <Box>
           {isOpened ? (
-            <Box marginBottom={"1em"}>
+            <Box>
               <Open extractedText={extractedText}></Open>
             </Box>
-          ) : null}
-          <Flex
-            justifyContent={"end"}
-            onMouseOver={() => {
-              console.log("mouse over");
-              if (!isOpened) setIsOpened(true);
-            }}
-            onClick={() => {
-              if (isOpened) setIsOpened(false);
-            }}
-          >
-            <Close></Close>
-          </Flex>
+          ) : (
+            <Flex
+              justifyContent={"end"}
+              className="transition-all"
+              onMouseOver={() => {
+                console.log("mouse over");
+                if (!isOpened) setIsOpened(true);
+              }}
+              // onClick={() => {
+              //   if (isOpened) setIsOpened(false);
+              // }}
+            >
+              <Close></Close>
+            </Flex>
+          )}
         </Box>
       </Box>
     </React.StrictMode>

@@ -70,7 +70,7 @@ export const Open: React.FC<OpenProps> = ({ extractedText }) => {
   return (
     <Box
       borderRadius={"16px"}
-      bg={"black"}
+      bg={"blue"}
       w={"240px"}
       border={"1px"}
       borderColor={"black"}

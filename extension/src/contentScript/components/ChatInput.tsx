@@ -24,6 +24,7 @@ export const ChatInput: React.FC<InputProps> = ({
     <Box>
       <Input
         ref={autoFocus}
+        bg={'transparent'}
         padding={"16px"}
         borderTopRadius={"16px"}
         // width={"100%"}
