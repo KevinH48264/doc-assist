@@ -1,1 +1,2 @@
 1. Only works with when ends with .pdf
+2. Extract only in article tag if it exists

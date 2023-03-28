@@ -1,6 +1,4 @@
-import {
-  getDocument, GlobalWorkerOptions, version
-} from "pdfjs-dist";
+import { getDocument, GlobalWorkerOptions, version } from "pdfjs-dist";
 import ReactDOM from "react-dom";
 
 export async function getCurrentTab() {
@@ -78,7 +76,16 @@ export const extractText = () => {
   }
 
   // get the body tag
-  let body = document.querySelector("body");
+  let body;
+  if (document.querySelector("main") !== null) {
+    // <article> tag exists in the DOM
+    // your code here
+    console.log("main exists");
+    body = document.querySelector("main");
+  } else {
+    body = document.querySelector("body");
+  }
+
   let textContent = "";
 
   if (body) {
