@@ -28,12 +28,12 @@ def pdf2text_function():
     return {"text": ""}
 
   if (url.startswith("file://")):
-    abs_path = url[7:]
     url = url.replace("%20", " ")
+    abs_path = url[7:]
     reader = PdfReader(abs_path)
   elif (url.startswith("C:")):
-    abs_path = url[2:]
     url = url.replace("%20", " ")
+    abs_path = url[2:]
     reader = PdfReader(abs_path)
   else:
     response = requests.get(url)
