@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
 
-  "name": "Browser GPT",
+  "name": "DockGPT",
   "description": "ChatGPT always ready for websites and pdfs",
-  "version": "0.0.1.0",
+  "version": "0.0.0.1",
 
   "options_ui": {
     "page": "options.html"
