@@ -23,12 +23,11 @@ export const ChatInput: React.FC<InputProps> = ({
   };
 
   return (
-    <Box display={"flex"} alignContent={"space-between"}>
-      <p style={{ fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif", fontSize: "20px", paddingLeft: "16px", color: "white", fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsOpened(false)}>{'>'}</p>
+    <Box display={"flex"} marginTop={"16px"} alignContent={"space-between"}>
+      <p style={{ fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif", fontSize: "20px", paddingRight: "16px", color: "white", fontWeight: "bold", cursor: "pointer", margin: "0px"}} onClick={() => setIsOpened(false)}>{'>'}</p>
       <Input
         ref={autoFocus}
         bg={'transparent'}
-        padding={"16px"}
         paddingRight={"20px"}
         borderBottomRadius={"16px"}
         width={"100%"}

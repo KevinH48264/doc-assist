@@ -33,10 +33,11 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
       <Box
         zIndex={1000}
         position={"fixed"}
-        bottom={!isOpened ? 0 : 0}
+        bottom={0}
+        // bottom={!isOpened ? 0 : 0}
         right={0}
         marginBottom={10}
-        transition="all 0.5s ease"
+        // transition="all 0.5s ease"
         id="gptcard"
         onMouseLeave={() => {
           setIsOverCard(false);

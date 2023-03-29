@@ -75,9 +75,11 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
       w={"300px"}
       border={"1px"}
       borderColor={"black"}
+      padding={"16px"}
+      paddingRight={"0px"}
     >
       <Body dataResponse={dataResponse} loading={loading} />
-      <hr style={{opacity: "40%", margin: "0px"}} />
+      <hr style={{opacity: "40%", margin: "0px", color: "#4D4D4F"}} />
       <ChatInput
         fetchData={fetchData}
         inputText={inputText}

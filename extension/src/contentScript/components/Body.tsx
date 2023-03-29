@@ -13,7 +13,7 @@ export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
     <Box
       fontFamily={"Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"}
       fontSize={"16px"}
-      padding={"16px"}
+      marginBottom={"16px"}
       height={window.innerHeight / 2}
       overflowY={"scroll"}
       color={"#D2D6DA"}
