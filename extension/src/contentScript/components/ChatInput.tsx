@@ -32,10 +32,11 @@ export const ChatInput: React.FC<InputProps> = ({
         type="text"
         placeholder="AMA about this page"
         border={0}
-        background={"black"}
+        background={"#202123"}
         outline={0}
-        color={"grey"}
-        fontFamily={"monospace"}
+        color={"white"}
+        fontFamily={"Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"}
+        fontSize={"16px"}
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown={returnHandler}
       />

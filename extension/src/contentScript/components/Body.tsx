@@ -11,16 +11,17 @@ export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
 
   return (
     <Box
-      fontFamily={"monospace"}
+      fontFamily={"Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"}
+      fontSize={"16px"}
       padding={"16px"}
-      height={"340px"}
-      overflow={"scroll"}
-      color={"white"}
+      height={window.innerHeight / 2}
+      overflowY={"scroll"}
+      color={"#D2D6DA"}
     >
       {loading
-        ? "Generating..."
+        ? "Loading..."
         : !dataResponse
-        ? "Ask me a question!"
+        ? ""
         : dataResponse}
     </Box>
   );

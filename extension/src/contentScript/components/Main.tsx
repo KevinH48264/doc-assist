@@ -9,7 +9,7 @@ interface GPTCardProps {
 }
 
 const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
-  const [isOpened, setIsOpened] = useState(true);
+  const [isOpened, setIsOpened] = useState(false);
   const [extractedText, setExtractedText] = useState("");
   useEffect(() => {
     if (pdfText) {
@@ -29,8 +29,10 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
         marginBottom={10}
         transition="all 0.5s ease"
         id="gptcard"
-        onMouseOut={() => {
-          if (isOpened) setIsOpened(false);
+        onMouseLeave={() => {
+          if (isOpened) {
+            setIsOpened(false);
+          }
         }}
       >
         <Box>
@@ -46,9 +48,6 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
                 console.log("mouse over");
                 if (!isOpened) setIsOpened(true);
               }}
-              // onClick={() => {
-              //   if (isOpened) setIsOpened(false);
-              // }}
             >
               <Close></Close>
             </Flex>
