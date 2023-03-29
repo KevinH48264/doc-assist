@@ -7,9 +7,10 @@ import { ChatInput } from "./ChatInput";
 
 interface OpenProps {
   extractedText: string;
+  setIsOpened: any;
 }
 
-export const Open: React.FC<OpenProps> = ({ extractedText }) => {
+export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
   const [dataResponse, setDataResponse] = useState("");
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -81,6 +82,7 @@ export const Open: React.FC<OpenProps> = ({ extractedText }) => {
         fetchData={fetchData}
         inputText={inputText}
         setInputText={setInputText}
+        setIsOpened={setIsOpened}
       />
     </Box>
   );

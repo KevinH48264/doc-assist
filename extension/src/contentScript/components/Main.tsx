@@ -10,6 +10,7 @@ interface GPTCardProps {
 
 const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const [isOverCard, setIsOverCard] = useState(false);
   const [extractedText, setExtractedText] = useState("");
   useEffect(() => {
     if (pdfText) {
@@ -17,6 +18,14 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
       return;
     }
     setExtractedText(extractText());
+
+    // add a listener to document if what was clicked was not gptcard
+    document.addEventListener('click', function(event) {
+      console.log("CLICKED!", event, isOverCard, isOpened)
+      if (!isOverCard) {
+        setIsOpened(false);
+      }
+    });
   }, []);
 
   return (
@@ -30,15 +39,13 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
         transition="all 0.5s ease"
         id="gptcard"
         onMouseLeave={() => {
-          if (isOpened) {
-            setIsOpened(false);
-          }
+          setIsOverCard(false);
         }}
       >
         <Box>
           {isOpened ? (
             <Box>
-              <Open extractedText={extractedText}></Open>
+              <Open extractedText={extractedText} setIsOpened={setIsOpened} />
             </Box>
           ) : (
             <Flex
@@ -46,7 +53,10 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
               className="transition-all"
               onMouseOver={() => {
                 console.log("mouse over");
-                if (!isOpened) setIsOpened(true);
+                if (!isOpened) {
+                  setIsOpened(true);
+                  setIsOverCard(true);
+                }
               }}
             >
               <Close></Close>

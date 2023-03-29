@@ -5,12 +5,14 @@ interface InputProps {
   setInputText: React.Dispatch<React.SetStateAction<string>>;
   inputText: string;
   fetchData: any;
+  setIsOpened: any;
 }
 
 export const ChatInput: React.FC<InputProps> = ({
   setInputText,
   inputText,
   fetchData,
+  setIsOpened,
 }) => {
   const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
 
@@ -21,14 +23,15 @@ export const ChatInput: React.FC<InputProps> = ({
   };
 
   return (
-    <Box>
+    <Box display={"flex"} alignContent={"space-between"}>
+      <p style={{ fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif", fontSize: "20px", paddingLeft: "16px", color: "white", fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsOpened(false)}>{'>'}</p>
       <Input
         ref={autoFocus}
         bg={'transparent'}
         padding={"16px"}
+        paddingRight={"20px"}
         borderBottomRadius={"16px"}
-        // width={"100%"}
-        width={"208px"}
+        width={"100%"}
         type="text"
         placeholder="AMA about this page"
         border={0}
