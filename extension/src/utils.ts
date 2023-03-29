@@ -94,6 +94,6 @@ export const extractText = () => {
     }
   }
 
-  console.log("HERE IS THE TEXT CONTENT: ", textContent)
+  // console.log("HERE IS THE TEXT CONTENT: ", textContent)
   return textContent;
 };

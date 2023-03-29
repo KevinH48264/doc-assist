@@ -12,6 +12,10 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [isOverCard, setIsOverCard] = useState(false);
   const [extractedText, setExtractedText] = useState("");
+
+  // only store dataResponse once
+  const [dataResponse, setDataResponse] = useState("");
+
   useEffect(() => {
     if (pdfText) {
       setExtractedText(pdfText);
@@ -46,7 +50,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
         <Box>
           {isOpened ? (
             <Box>
-              <Open extractedText={extractedText} setIsOpened={setIsOpened} />
+              <Open extractedText={extractedText} setIsOpened={setIsOpened} dataResponse={dataResponse} setDataResponse={setDataResponse}/>
             </Box>
           ) : (
             <Flex

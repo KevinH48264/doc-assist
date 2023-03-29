@@ -8,14 +8,16 @@ import { ChatInput } from "./ChatInput";
 interface OpenProps {
   extractedText: string;
   setIsOpened: any;
+  dataResponse: string;
+  setDataResponse: any;
 }
 
-export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
-  const [dataResponse, setDataResponse] = useState("");
+export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResponse, setDataResponse }) => {
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
+    console.log("FETCHING!")
     setLoading(true);
     const options = {
       method: "POST",
@@ -55,6 +57,10 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
               newText += eventData["choices"][0]["delta"]["content"];
               setDataResponse(newText);
             }
+          } else {
+            // done!
+            console.log("DONE FETCHING")
+            setLoading(false);
           }
         }
       });
@@ -65,7 +71,6 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
         parser.feed(event);
       }
     });
-    setLoading(false);
   };
 
   return (
@@ -79,12 +84,13 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened }) => {
       paddingRight={"0px"}
     >
       <Body dataResponse={dataResponse} loading={loading} />
-      <hr style={{opacity: "40%", margin: "0px", color: "#4D4D4F"}} />
+      <hr style={{opacity: "40%", margin: "0px", color: "#4D4D4F", paddingRight: "16px"}} />
       <ChatInput
         fetchData={fetchData}
         inputText={inputText}
         setInputText={setInputText}
         setIsOpened={setIsOpened}
+        loading={loading}
       />
     </Box>
   );

@@ -6,6 +6,7 @@ interface InputProps {
   inputText: string;
   fetchData: any;
   setIsOpened: any;
+  loading: boolean;
 }
 
 export const ChatInput: React.FC<InputProps> = ({
@@ -13,11 +14,13 @@ export const ChatInput: React.FC<InputProps> = ({
   inputText,
   fetchData,
   setIsOpened,
+  loading,
 }) => {
   const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
 
   const returnHandler = async (e: any) => {
-    if (e.keyCode === 13 && inputText) {
+    console.log("HERE IS LOADING: ", loading)
+    if (e.keyCode === 13 && inputText && !loading) {
       fetchData();
     }
   };
