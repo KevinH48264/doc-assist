@@ -64,7 +64,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
                 }
               }}
             >
-              <Close></Close>
+              <Close />
             </Flex>
           )}
         </Box>
