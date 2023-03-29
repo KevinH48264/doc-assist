@@ -25,7 +25,6 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
 
     // add a listener to document if what was clicked was not gptcard
     document.addEventListener('click', function(event) {
-      console.log("CLICKED!", event, isOverCard, isOpened)
       if (!isOverCard) {
         setIsOpened(false);
       }

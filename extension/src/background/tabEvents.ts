@@ -15,7 +15,7 @@ export async function initializeTabEventListeners() {
             url: tab.url,
           }),
         };
-        const response = await fetch("http://localhost:8080/pdf2text", options);
+        const response = await fetch("https://opendoc-conirvxfeq-uc.a.run.app/pdf2text", options);
         body = await response.json();
       }
 
