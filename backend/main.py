@@ -42,7 +42,7 @@ def pdf2text_function():
         reader = PdfReader('./file.pdf')
 
   text = ""
-  for i in range(11,19):
+  for i in range(5,11):
     page = reader.pages[i]
     text += page.extract_text()
 

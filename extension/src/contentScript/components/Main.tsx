@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { extractText } from "../../utils";
 import { Close } from "./Close";
 import { Open } from "./Open";
+import { Readability } from "@mozilla/readability";
 
 interface GPTCardProps {
   pdfText: string;
@@ -11,12 +12,18 @@ interface GPTCardProps {
 const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [extractedText, setExtractedText] = useState("");
+
   useEffect(() => {
+    var documentClone = document.cloneNode(true);
+    var article = new Readability(documentClone as Document).parse();
     if (pdfText) {
       setExtractedText(pdfText);
       return;
     }
-    setExtractedText(extractText());
+
+    console.log(article?.textContent);
+    console.log(article);
+    if (article?.textContent) setExtractedText(article?.textContent);
   }, []);
 
   return (

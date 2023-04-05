@@ -53,9 +53,6 @@ function App() {
     fetch(`${URL}/query`, options)
       .then((response) => response.json())
       .then((data) => {
-        console.log("QUERY RESPONSE HERE: ", data);
-        console.log(data["Response"]);
-        console.log(data["Response"]["response"]);
         setAnswer("Response: " + data["Response"]["response"]);
       });
   }
@@ -133,6 +130,7 @@ function App() {
       }
     }
   }, []);
+  console.log("HELLO", process.env.TEST);
 
   return (
     <div className="App" style={{ display: "flex", flexDirection: "row" }}>

@@ -23,6 +23,7 @@
     "@fontsource/bagnard": "^4.5.4",
     "@fontsource/clear-sans": "^4.5.3",
     "@fontsource/molengo": "^4.5.11",
+    "@mozilla/readability": "^0.4.4",
     "crypto-randomuuid": "^1.0.0",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^8.5.5",
