@@ -32,7 +32,8 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResp
 
     // TODO: Edit this URL
     fetch(
-      `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
+      // `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
+      `http://localhost:8080/chat_stream`,
       options as any
     ).then(async (response) => {
       console.log("Calling OpenAI API");

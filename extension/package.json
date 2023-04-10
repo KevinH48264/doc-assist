@@ -27,7 +27,8 @@
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^8.5.5",
     "pdfjs-dist": "^3.4.120",
-    "react-icons": "^4.7.1"
+    "react-icons": "^4.7.1",
+    "react-pdf": "^6.2.2"
   },
   "devDependencies": {
     "@types/chrome": "0.0.158",
@@ -35,6 +36,7 @@
     "@types/jquery": "^3.5.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-pdf": "^6.2.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
