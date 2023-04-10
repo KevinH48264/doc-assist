@@ -16,6 +16,9 @@
     "type": "git",
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
+  "browser": {
+    "[module-name]": false
+  },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
@@ -23,9 +26,11 @@
     "@fontsource/bagnard": "^4.5.4",
     "@fontsource/clear-sans": "^4.5.3",
     "@fontsource/molengo": "^4.5.11",
+    "@types/node": "^18.15.11",
     "crypto-randomuuid": "^1.0.0",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^8.5.5",
+    "http": "^0.0.1-security",
     "pdfjs-dist": "^3.4.120",
     "react-icons": "^4.7.1",
     "react-pdf": "^6.2.2"
