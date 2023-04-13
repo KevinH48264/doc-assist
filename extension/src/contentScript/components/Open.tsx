@@ -15,10 +15,12 @@ interface OpenProps {
 export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResponse, setDataResponse }) => {
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [answer, setAnswer] = useState("");
 
   const fetchData = async () => {
     console.log("FETCHING!")
     setLoading(true);
+    console.log("Extracted Text: ", extractedText);
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,51 +29,55 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResp
         website_text: extractedText,
         prompt: inputText,
         chat_history: [],
+        // namespace:
       }),
     };
 
     // TODO: Edit this URL
-    fetch(
+    const response = await fetch(
       // `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
-      `http://localhost:8080/chat_stream`,
+      "http://localhost:8080/chat_stream",
       options as any
-    ).then(async (response) => {
-      console.log("Calling OpenAI API");
-      let newText = "";
+    );
+    console.log("Calling OpenAI API");
 
-      // checks for errors
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}));
-        throw new Error(
-          error
-            ? JSON.stringify(error)
-            : `${response.status} ${response.statusText}`
-        );
-      }
+    // --- for testing with pdf
+    // const data = await response.json();
+    // setAnswer(data.answer);
+    // console.log(data);
+    // ----------------------
 
-      // helper function to parse through each stream event and update new text
-      const parser = createParser((event) => {
-        if (event.type === "event") {
-          if (event.data !== "[DONE]") {
-            var eventData = JSON.parse(event.data);
-            if ("content" in eventData.choices[0].delta) {
-              newText += eventData["choices"][0]["delta"]["content"];
-              setDataResponse(newText);
-            }
-          } else {
-            // done!
-            console.log("DONE FETCHING")
-            setLoading(false);
+    let newText = "";
+
+    // checks for errors
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      throw new Error(
+        error
+          ? JSON.stringify(error)
+          : `${response.status} ${response.statusText}`
+      );
+    }
+    // helper function to parse through each stream event and update new text
+    const parser = createParser((event) => {
+      if (event.type === "event") {
+        if (event.data !== "[DONE]") {
+          var eventData = JSON.parse(event.data);
+          if ("content" in eventData.choices[0].delta) {
+            newText += eventData["choices"][0]["delta"]["content"];
+            setDataResponse(newText);
           }
         }
-      });
-
-      // catches chunks from stream
-      for await (const chunk of streamAsyncIterable(response.body)) {
-        const event = new TextDecoder().decode(chunk);
-        parser.feed(event);
       }
     });
+
+    // catches chunks from stream
+    for await (const chunk of streamAsyncIterable(response.body)) {
+      const event = new TextDecoder().decode(chunk);
+      parser.feed(event);
+    }
+
+    setLoading(false);
   };
 
   return (

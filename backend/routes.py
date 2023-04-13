@@ -37,21 +37,23 @@ def chat_openai(question="Tell me to ask you a prompt", website="", chat_history
 def chat_openai_stream(question="Tell me to ask you a prompt", website="", chat_history=[]):
     print("chatting openai stream in routes!")
 
-    # define prompt
-    prompt = question
     if website:
-        prompt = "Given this information: " + website[:MAX_CHAT_SIZE - len(question)] + ", respond conversationally to this prompt: " + question
-
+        # prompt = "Given this information: " + website[:MAX_CHAT_SIZE - len(question)] + ", respond conversationally to this prompt: " + question
+        prompt = "Given the following information, answer the following question regardless of whether it's related to this text or not: " +  website[:MAX_CHAT_SIZE - len(question)]
     # define message conversation for model
+    
+    
     if chat_history:
         messages = chat_history
     else:
         messages = [
-            {"role": "system", "content": "You are a helpful assistant, a large language model trained by OpenAI. Answer as concisely as possible. If you're unsure of the answer, say 'Sorry, I don't know'"},
+            # {"role": "system", "content": "You are a helpful assistant, a large language model trained by OpenAI. Answer as concisely as possible. If you're unsure of the answer, say 'Sorry, I don't know'"},
+            {"role": "system", "content": "You are a helpful assistant."}
         ]
     messages.append({"role": "user", "content": prompt})
+    messages.append({"role": "user", "content": question})
 
-
+    
     # create the chat completion
     reqURL = 'https://api.openai.com/v1/chat/completions'
     reqHeaders = {
@@ -62,7 +64,7 @@ def chat_openai_stream(question="Tell me to ask you a prompt", website="", chat_
         'model': 'gpt-3.5-turbo',
         'messages': messages,
         'stream': True,
-        'temperature': 0.2,
+        'temperature': 0.8,
         'max_tokens' : 2048,
     }
 

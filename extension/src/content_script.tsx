@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
           container
         );
-      }      
+      }
       break;
   }
 

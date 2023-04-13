@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { getCurrentTab, getPdfText } from "../../utils";
+import { formatResponse, getCurrentTab, getPdfText } from "../../utils";
 
 interface BodyProps {
   dataResponse: any;
@@ -8,7 +8,6 @@ interface BodyProps {
 }
 
 export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
-
   return (
     <Box
       fontFamily={"Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"}

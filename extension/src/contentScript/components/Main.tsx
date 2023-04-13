@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { extractText } from "../../utils";
 import { Close } from "./Close";
 import { Open } from "./Open";
+import { Readability } from "@mozilla/readability";
 
 interface GPTCardProps {
   pdfText: string;
@@ -17,11 +18,16 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
   const [dataResponse, setDataResponse] = useState("");
 
   useEffect(() => {
+    var documentClone = document.cloneNode(true);
+    var article = new Readability(documentClone as Document).parse();
     if (pdfText) {
       setExtractedText(pdfText);
       return;
     }
-    setExtractedText(extractText());
+    
+    console.log(article?.textContent);
+    // console.log(article);
+    if (article?.textContent) setExtractedText(article?.textContent);
 
     // add a listener to document if what was clicked was not gptcard
     document.addEventListener('click', function(event) {
