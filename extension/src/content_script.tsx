@@ -16,6 +16,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         container.id = "gptcard-container"
         document.body.appendChild(container);
         const pdfText = request.arguments["message"]
+        
         ReactDOM.render(
           <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
           container

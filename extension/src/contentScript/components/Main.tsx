@@ -10,7 +10,8 @@ interface GPTCardProps {
 }
 
 const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
-  const [isOpened, setIsOpened] = useState(true);
+  console.log("RELOADING PAGE")
+  const [isOpened, setIsOpened] = useState(false);
   const [isOverCard, setIsOverCard] = useState(false);
   const [extractedText, setExtractedText] = useState("");
 
@@ -31,14 +32,18 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
 
     // add a listener to document if what was clicked was not gptcard
     document.addEventListener('click', function(event) {
-      if (!isOverCard) {
+      console.log("isOverCard click", "isOverCard", isOverCard, "isOpened", isOpened)
+      if (!isOverCard && isOpened) {
         setIsOpened(false);
-      }
+      } 
+      // else if (!isOpened) {
+      //   setIsOpened(true);
+      // }
     });
   }, []);
 
   return (
-    <React.StrictMode>
+    // <React.StrictMode>
       <Box
         zIndex={1000}
         position={"fixed"}
@@ -50,6 +55,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
         id="gptcard"
         onMouseLeave={() => {
           setIsOverCard(false);
+          console.log("isOverCard leave", isOverCard)
         }}
       >
         <Box>
@@ -59,14 +65,16 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
             </Box>
           ) : (
             <Flex
-              justifyContent={"end"}
+              justifyContent="flex-end"
               className="transition-all"
               onMouseOver={() => {
                 console.log("mouse over");
-                if (!isOpened) {
+                console.log("isOverCard MOUSE OVER BEFORE", "isOverCard", isOverCard, "isOpened", isOpened)
+                if (!isOpened || !isOverCard) {
                   setIsOpened(true);
                   setIsOverCard(true);
                 }
+                console.log("isOverCard MOUSE OVER", "isOverCard", isOverCard, "isOpened", isOpened)
               }}
             >
               <Close />
@@ -74,7 +82,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
           )}
         </Box>
       </Box>
-    </React.StrictMode>
+    // </React.StrictMode>
   );
 };
 

@@ -16,7 +16,7 @@ export const ChatInput: React.FC<InputProps> = ({
   setIsOpened,
   loading,
 }) => {
-  const autoFocus = useCallback((el) => (el ? el.focus() : null), []);
+  const autoFocus = useCallback((el: any) => (el ? el.focus() : null), []);
 
   const returnHandler = async (e: any) => {
     console.log("HERE IS LOADING: ", loading)
