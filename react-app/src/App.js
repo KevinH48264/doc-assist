@@ -76,7 +76,7 @@ function App() {
     };
 
     // TODO: Edit this URL
-    fetch(`https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`, options).then(
+    fetch(`http://localhost:8080/chat_stream`, options).then(
       async (response) => {
         console.log("Calling OpenAI API");
         var newText = "";
