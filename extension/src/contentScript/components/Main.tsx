@@ -10,7 +10,7 @@ interface GPTCardProps {
 }
 
 const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
-  const [isOpened, setIsOpened] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
   const [isOverCard, setIsOverCard] = useState(false);
   const [extractedText, setExtractedText] = useState("");
 

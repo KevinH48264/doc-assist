@@ -191,6 +191,7 @@ def chat_stream_function():
     'chat_history' : chat_history
   }
   '''
+  print("chatting with stream!")
 
   data = request.get_json()
 
@@ -212,4 +213,4 @@ def index_function():
   return jsonify({})
 
 if __name__ == "__main__":
-  app.run(debug=True, host="0.0.0.0", port=8082)
+  app.run(debug=True, host="0.0.0.0", port=8080)

@@ -36,10 +36,10 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResp
     // TODO: Edit this URL
     const response = await fetch(
       // `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
-      "http://localhost:8080/chat_stream",
+      "http://127.0.0.1:8080/chat_stream",
       options as any
     );
-    console.log("Calling OpenAI API");
+    console.log("Calling OpenAI API", response);
 
     // --- for testing with pdf
     // const data = await response.json();
@@ -73,6 +73,7 @@ export const Open: React.FC<OpenProps> = ({ extractedText, setIsOpened, dataResp
 
     // catches chunks from stream
     for await (const chunk of streamAsyncIterable(response.body)) {
+      console.log(chunk)
       const event = new TextDecoder().decode(chunk);
       parser.feed(event);
     }
