@@ -73,7 +73,7 @@ function App() {
     };
 
     // TODO: Edit this URL
-    fetch(`https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`, options).then(
+    fetch(`http://127.0.0.1:8080/chat_stream`, options).then(
       async (response) => {
         console.log("Calling OpenAI API");
         var newText = "";
@@ -95,6 +95,7 @@ function App() {
         const parser = createParser((event) => {
           if (event.type === "event") {
             if (event.data !== "[DONE]") {
+              console.log("event.data", event.data)
               var eventData = JSON.parse(event.data);
               if ("content" in eventData.choices[0].delta) {
                 newText += eventData["choices"][0]["delta"]["content"];

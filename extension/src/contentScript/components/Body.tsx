@@ -10,18 +10,17 @@ interface BodyProps {
 export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
   return (
     <Box
-      fontFamily={"monospace"}
-      padding={"8px"}
-      height={"340px"}
-      overflow={"scroll"}
-      color={"white"}
+      fontFamily={"Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif"}
+      fontSize={"16px"}
+      marginBottom={"16px"}
+      paddingRight={"16px"}
+      height={window.innerHeight / 2}
+      overflowY={"scroll"}
+      color={"#D2D6DA"}
     >
-      {/* {loading
-        ? "Generating..."
-        : !dataResponse
-        ? "Ask me a question!"
-        : dataResponse} */}
-      {formatResponse(dataResponse)}
+      {!dataResponse
+        ? ""
+        : dataResponse}
     </Box>
   );
 };
