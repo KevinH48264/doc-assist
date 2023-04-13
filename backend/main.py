@@ -14,7 +14,7 @@ from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Pinecone
-from utils import make_chain
+# from utils import make_chain
 
 app = Flask(__name__)
 cors = CORS(app)
