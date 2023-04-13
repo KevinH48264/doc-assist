@@ -22,7 +22,7 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
     }
 
     console.log(article?.textContent);
-    console.log(article);
+    // console.log(article);
     if (article?.textContent) setExtractedText(article?.textContent);
   }, []);
 
@@ -44,12 +44,13 @@ const GPTCard: React.FC<GPTCardProps> = ({ pdfText }) => {
           ) : null}
           <Flex
             justifyContent={"end"}
-            onMouseOver={() => {
-              console.log("mouse over");
-              if (!isOpened) setIsOpened(true);
-            }}
+            // onMouseOver={() => {
+            //   console.log("mouse over");
+            //   if (!isOpened) setIsOpened(true);
+            // }}
             onClick={() => {
               if (isOpened) setIsOpened(false);
+              if (!isOpened) setIsOpened(true);
             }}
           >
             <Close></Close>

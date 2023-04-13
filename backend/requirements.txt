@@ -4,3 +4,4 @@ python-dotenv
 requests
 openai
 PyPDF2
+pinecone-client

@@ -17,12 +17,13 @@ export async function initializeTabEventListeners() {
         const response = await fetch("http://0.0.0.0:8082/pdf2text", options);
         body = await response.json();
       }
+      console.log("HELLOOO", { ...body, namespace: tab.url });
 
       console.log("complete", body);
       await sendMessageInCurrentTab({
         action: "tab-updated",
         arguments: {
-          message: body,
+          message: { ...body, namespace: tab.url },
         },
       });
     }
