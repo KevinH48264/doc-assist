@@ -5,3 +5,4 @@ requests
 openai
 PyPDF2
 pinecone-client
+langchain==0.0.138

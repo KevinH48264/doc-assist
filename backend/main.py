@@ -19,7 +19,7 @@ from utils import make_chain
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-url = "http://0.0.0.0:8082/"
+url = "http://0.0.0.0:8080/"
 
 # Health check route
 @app.route("/isalive")
