@@ -1,0 +1,66 @@
+[Full Name]
+[Address] | [Phone Number] | [Email]
+
+Objective:
+To obtain the role of Founding Data Scientist on the Applied Product team at OpenAI, to establish a data-driven product development culture that drives measurable impact and embeds with the product development team as a trusted partner.
+
+Skills:
+- 5+ years experience in a quantitative role navigating highly ambiguous environments, ideally as a founding data scientist or product analyst at a hyper-growth product company or research org
+- Strong command of SQL and Python to design and run rigorous experiments
+- Defined and implemented new feature and product-level metrics from scratch
+- Excellent communication skills with demonstrated ability to communicate with product managers, engineers, and executives alike
+- Strategic insights beyond the paradigm of statistical significance testing
+
+Experience:
+Microsoft, AI Platform				   							   Redmond, WA
+Product Manager Intern								 May 2022 - August 2022
+
+- Scoped plan to 2x integrations and impact 500M active devices after conducting customer discovery with 110 cross-functional teams
+- Identified and resolved 80% product performance degradation with US and APAC engineers
+- Presented 2 product performance analyses with PowerBI dashboards and prioritized improvements using market size
+- Spearheaded 2 customer validation surveys across 3 social channels for intern-wide social impact hackathon
+
+Education:
+[Degree], [Field of Study]									[Graduation Date]
+[University], [Location]
+
+Selected Projects:
+[Project Name]: [Description]
+[Project Name]: [Description]
+[Project Name]: [Description]
+
+References:
+Available upon request. 
+
+Tailoring the Resume:
+To tailor this resume for the Founding Data Scientist role at OpenAI, the following changes can be made:
+
+Objective: 
+Change the objective to highlight the candidate's interest and experience in data-driven product development and establishing north-star metrics.
+
+Skills:
+Group the skills and qualifications that match the job description:
+
+- Experience defining and interpreting A/B tests to drive measurable impact
+- Ability to establish a data-driven product development culture by defining, tracking, and operationalizing feature-, product-, and company-level metrics
+- Excellent communication skills with demonstrated ability to communicate with product managers, engineers, and executives alike
+- Experience working in hyper-growth product company or research organization
+- Strategic insights beyond the paradigm of statistical significance testing
+- Strong programming background with ability to run simulations and prototype variants
+
+Experience:
+Reorder the bullet points to reflect the most relevant experience and responsibilities:
+
+- Worked with cross-functional teams to conduct customer discovery and scope a plan to 2x integrations and impact 500M devices.
+- Designed and ran PowerBI dashboards to present 2 product performance analyses and prioritize improvements.
+- Identified and resolved 80% product performance degradation with US and APAC engineers, demonstrating an ability to navigate highly ambiguous environments.
+- Spearheaded 2 customer validation surveys across 3 social channels, showing experience validating quantitative insights with qualitative methods.
+
+Education:
+No changes necessary.
+
+Projects:
+Include projects that highlight the candidate's experience with NLP, large language models, or generative AI.
+
+References:
+No changes necessary.

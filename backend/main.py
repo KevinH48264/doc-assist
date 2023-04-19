@@ -207,6 +207,32 @@ def chat_stream_function():
 
   return Response(res_answer_generator, mimetype='text/event-stream')
 
+# chatting with stream
+@app.route('/tailor_resume', methods=['POST'])
+def tailor_resume_function():
+  '''
+  input_dict = {
+    'question' : resume,
+    'website' : job_description,
+    'chat_history' : chat_history
+  }
+  '''
+  print("tailoring resume!")
+
+  data = request.get_json()
+
+  website_text, prompt, chat_history = "", "", []
+
+  if 'website_text' in data.keys():
+    website_text = data['website_text']
+  if 'prompt' in data.keys():
+    prompt = data['prompt']
+  if 'chat_history' in data.keys():
+    chat_history = data['chat_history']
+  res_answer_generator, res_messages = routes.chat_openai_tailor_resume(prompt, website_text, chat_history)
+
+  return Response(res_answer_generator, mimetype='text/event-stream')
+
 @app.route('/')
 def index_function():
   print("RUNNING APP!")
