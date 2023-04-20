@@ -11,14 +11,16 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     case "tab-updated":
       // ensure only one gpt container appears
 
-      if (!document.getElementById('gptcard-container')) {
+      if (!document.getElementById("gptcard-container")) {
         const container = document.createElement("div");
-        container.id = "gptcard-container"
+        container.id = "gptcard-container";
         document.body.appendChild(container);
-        const pdfText = request.arguments["message"]
-        
+        const pdfText = request.arguments["message"];
+
         ReactDOM.render(
-          <Main pdfText={pdfText ? request.arguments["message"]["text"] : null} />,
+          <Main
+            pdfText={pdfText ? request.arguments["message"]["text"] : null}
+          />,
           container
         );
       }

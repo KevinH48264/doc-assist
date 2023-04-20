@@ -19,7 +19,7 @@ export const Body: React.FC<BodyProps> = ({ dataResponse, loading }) => {
       color={"#D2D6DA"}
     >
       {!dataResponse
-        ? ""
+        ? "This tool works best on articles and short, public PDFs. Enjoy!"
         : dataResponse}
     </Box>
   );

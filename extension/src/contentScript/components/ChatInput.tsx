@@ -19,7 +19,7 @@ export const ChatInput: React.FC<InputProps> = ({
   const autoFocus = useCallback((el: any) => (el ? el.focus() : null), []);
 
   const returnHandler = async (e: any) => {
-    console.log("HERE IS LOADING: ", loading)
+    console.log("HERE IS LOADING: ", loading);
     if (e.keyCode === 13 && inputText && !loading) {
       fetchData();
     }
@@ -27,10 +27,23 @@ export const ChatInput: React.FC<InputProps> = ({
 
   return (
     <Box display={"flex"} marginTop={"16px"} alignContent={"space-between"}>
-      <p style={{ fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif", fontSize: "20px", paddingRight: "16px", color: "white", fontWeight: "bold", cursor: "pointer", margin: "0px"}} onClick={() => setIsOpened(false)}>{'>'}</p>
+      <p
+        style={{
+          fontFamily: "Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          fontSize: "20px",
+          paddingRight: "16px",
+          color: "white",
+          fontWeight: "bold",
+          cursor: "pointer",
+          margin: "0px",
+        }}
+        onClick={() => setIsOpened(false)}
+      >
+        {">"}
+      </p>
       <Input
         ref={autoFocus}
-        bg={'transparent'}
+        bg={"transparent"}
         paddingRight={"20px"}
         borderBottomRadius={"16px"}
         width={"100%"}
