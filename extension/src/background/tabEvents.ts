@@ -19,15 +19,14 @@ export async function initializeTabEventListeners() {
         // const response = await fetch("https://opendoc-conirvxfeq-uc.a.run.app/pdf2text", options);
         // const response = await fetch("http://127.0.0.1:8081/pdf2text", options);
         const response = await fetch(
-          "http://127.0.0.1:8081/pdf2text2",
+          // "http://127.0.0.1:8081/pdf2text2",
+          "https://opendoc-conirvxfeq-uc.a.run.app/pdf2text2",
           options
         );
 
         body = await response.json();
       }
-      console.log("HELLOOO", { ...body, namespace: tab.url });
 
-      console.log("complete", body);
       await sendMessageInCurrentTab({
         action: "tab-updated",
         arguments: {

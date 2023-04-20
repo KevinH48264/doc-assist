@@ -38,8 +38,8 @@ export const Open: React.FC<OpenProps> = ({
 
     // TODO: Edit this URL
     const response = await fetch(
-      // `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
-      "http://127.0.0.1:8081/chat_stream",
+      `https://opendoc-conirvxfeq-uc.a.run.app/chat_stream`,
+      // "http://127.0.0.1:8081/chat_stream",
       options as any
     );
     console.log("Calling OpenAI API", response);
