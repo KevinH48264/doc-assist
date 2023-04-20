@@ -224,12 +224,38 @@ def tailor_resume_function():
   website_text, prompt, chat_history = "", "", []
 
   if 'website_text' in data.keys():
+    resume = data['website_text']
+  if 'prompt' in data.keys():
+    job = data['prompt']
+  if 'chat_history' in data.keys():
+    chat_history = data['chat_history']
+  res_answer_generator, res_messages = routes.chat_openai_tailor_resume(resume, job, chat_history)
+
+  return Response(res_answer_generator, mimetype='text/event-stream')
+
+# chatting with stream
+@app.route('/tailor_essay', methods=['POST'])
+def tailor_essay_function():
+  '''
+  input_dict = {
+    'question' : resume,
+    'website' : job_description,
+    'chat_history' : chat_history
+  }
+  '''
+  print("tailoring essay!")
+
+  data = request.get_json()
+
+  website_text, prompt, chat_history = "", "", []
+
+  if 'website_text' in data.keys():
     website_text = data['website_text']
   if 'prompt' in data.keys():
     prompt = data['prompt']
   if 'chat_history' in data.keys():
     chat_history = data['chat_history']
-  res_answer_generator, res_messages = routes.chat_openai_tailor_resume(prompt, website_text, chat_history)
+  res_answer_generator, res_messages = routes.chat_openai_tailor_essay(essay=prompt, sample=website_text, chat_history=chat_history)
 
   return Response(res_answer_generator, mimetype='text/event-stream')
 
