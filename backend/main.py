@@ -9,7 +9,7 @@ from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 from langchain.chains import VectorDBQAWithSourcesChain
 from langchain.chat_models import ChatOpenAI
-# from PyPDF2 import PdfReader
+from PyPDF2 import PdfReader
 from langchain.document_loaders import PyPDFLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -19,7 +19,7 @@ from langchain.vectorstores import Pinecone
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-url = "http://0.0.0.0:8080/"
+url = "http://0.0.0.0:8081/"
 
 # Health check route
 @app.route("/isalive")
@@ -37,7 +37,9 @@ def pdf2text_function():
   namespace = url
   url = url.replace("%20", " ")
   abs_path = url[7:]
+  print("BEFORE")
   loader = PyPDFLoader(abs_path)
+  print("AFTER")
   rawDocs = loader.load()
 
   # print("raw docs", rawDocs)
@@ -57,37 +59,37 @@ def pdf2text_function():
   return {"test": "test"}
 
 
-# @app.route("/pdf2text", methods=['POST'])
-# def pdf2text_function():
-  # data = request.get_json()
-  # print(data)
-  # url = None
-  # if "url" in data.keys():
-  #   url = data["url"]
+@app.route("/pdf2text2", methods=['POST'])
+def pdf2text2_function():
+  data = request.get_json()
+  print(data)
+  url = None
+  if "url" in data.keys():
+    url = data["url"]
 
-#   if not url:
-#     return {"text": ""}
+  if not url:
+    return {"text": ""}
 
-#   if (url.startswith("file://")):
-    # url = url.replace("%20", " ")
-    # abs_path = url[7:]
-#     reader = PdfReader(abs_path)
-#   elif (url.startswith("C:")):
-#     url = url.replace("%20", " ")
-#     abs_path = url[2:]
-#     reader = PdfReader(abs_path)
-#   else:
-#     response = requests.get(url)
-#     with open('file.pdf', 'wb') as f:
-#         f.write(response.content)
-#         reader = PdfReader('./file.pdf')
+  if (url.startswith("file://")):
+    url = url.replace("%20", " ")
+    abs_path = url[7:]
+    reader = PdfReader(abs_path)
+  elif (url.startswith("C:")):
+    url = url.replace("%20", " ")
+    abs_path = url[2:]
+    reader = PdfReader(abs_path)
+  else:
+    response = requests.get(url)
+    with open('file.pdf', 'wb') as f:
+        f.write(response.content)
+        reader = PdfReader('./file.pdf')
 
-#   text = ""
-#   for i in range(5,11):
-#     page = reader.pages[i]
-#     text += page.extract_text()
+  text = ""
+  for i in range(1,6):
+    page = reader.pages[i]
+    text += page.extract_text()
 
-#   return {"text": text}
+  return {"text": text}
 
 # chatting with no stream
 
@@ -213,4 +215,4 @@ def index_function():
   return jsonify({})
 
 if __name__ == "__main__":
-  app.run(debug=True, host="0.0.0.0", port=8080)
+  app.run(debug=True, host="0.0.0.0", port=8081)
