@@ -1,0 +1,1 @@
+A project to use GPT3.5 to answer questions about any website or document you're on, previously supported as a website to copy and paste text into and a Chrome extension to ask questions about the text
